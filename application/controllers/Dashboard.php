@@ -28,9 +28,7 @@ class Dashboard extends CI_Controller
 	public function index()
 	{
 		$data = [
-			'datapreferensi' => $this->bobot,
-			'datakriteria' => $this->db->get('tbl_kriteria')->result(),
-			'dataalternatif' => $this->db->get('tbl_alternatif')->num_rows()
+			'datapreferensi' => $this->bobot
 		];
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
