@@ -260,7 +260,7 @@
 													</div>
 												</div>
 												<input type="button" name="previous" class="previous action-button-previous" value="Kembali"/>
-												<input type="button" class="action-button" onclick="daftar()" value="Daftar"/>
+												<input type="button" class="action-button" id="btnDaftar" onclick="daftar()" value="Daftar"/>
 											</fieldset>
 		                            <!-- <fieldset>
 		                                <div class="form-card">
@@ -356,8 +356,8 @@
         // Add your validation logic here
 		var isValid = true;
 
-		// fieldset.find("input[type=text], input[type=date], input[type=radio],input[type=number],select, textarea, input[type=file]").each(function () {
-		fieldset.find("input[type=number].nilai,input[type=file]").each(function () {
+		fieldset.find("input[type=text], input[type=date], input[type=radio],input[type=number],select, textarea, input[type=file]").each(function () {
+		// fieldset.find("input[type=number].nilai,input[type=file]").each(function () {
 			if ($(this).is(':radio')) {
 	            // Check if at least one radio button in the group is checked
 				if ($('input[name="' + $(this).attr('name') + '"]:checked').length === 0) {
@@ -444,9 +444,27 @@
 	})
 });
 
-function daftar(){
-	var formData = $(this).formData();
+	function daftar(){
+		// var btnDaftar = $("#btnDaftar");
+		var form = $('#msform')[0];
+		var data = new FormData(form);
 
-	console.log(formData);
-}
+		console.log(form);
+		$.ajax({
+			url:"<?= base_url('ppdb/prosesreguler'); ?>",
+			method:"POST",
+			data:data,
+			dataType:"json",
+			enctype: 'multipart/form-data',
+			processData: false,
+			contentType: false,
+			// beforeSend: function(){
+			// 	btnDaftar.val('Proses...').attr('disabled', true);
+			// },
+			success:function (response) {
+				console.log(response);
+				// btnDaftar.val('Daftar').attr('disabled', false);
+			}
+		})
+	}
 </script>
