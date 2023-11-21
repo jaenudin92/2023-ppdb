@@ -8,7 +8,7 @@ class Login extends CI_Controller {
         parent::__construct();
         $this->load->library("form_validation");
         if ($this->session->userdata('status') ==  "logged") {
-            redirect(base_url());
+            redirect(base_url('dashboard'));
         }
     }
 
@@ -55,7 +55,7 @@ class Login extends CI_Controller {
                 $this->session->set_userdata($data);
                 $response = [
                     'success' => true,
-                    'url' => base_url()
+                    'url' => base_url('dashboard')
                 ];
             }
         }else{

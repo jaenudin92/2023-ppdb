@@ -55,7 +55,8 @@
 						</form>
 
 						<p class="text-center">
-							<span>Aplikasi SPK Metode WP</span>
+							<span>Aplikasi SPK Metode WP</span><br>
+							<i>Kembali Halaman <a href="<?= base_url() ?>">Website</a></i>
 						</p>
 					</div>
 				</div>

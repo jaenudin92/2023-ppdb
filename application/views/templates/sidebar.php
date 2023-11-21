@@ -12,7 +12,7 @@
 
 			<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 				<div class="app-brand demo">
-					<a href="<?= base_url(); ?>" class="app-brand-link">
+					<a href="<?= base_url('dashboard'); ?>" class="app-brand-link">
 						<span class="app-brand-logo demo">
 							<img src="<?= base_url(); ?>assets/img/favicon/favicon.ico" alt="Logo" style="width: 4.2vw;">
 						</span>
@@ -24,7 +24,7 @@
 				<ul class="menu-inner py-1">
 					<!-- Dashboard -->
 					<li class="menu-item" id="menu-a">
-						<a href="<?= base_url(); ?>" class="menu-link">
+						<a href="<?= base_url('dashboard'); ?>" class="menu-link">
 							<i class="menu-icon tf-icons bx bx-home-circle"></i>
 							<div data-i18n="Analytics">Dashboard</div>
 						</a>
@@ -93,7 +93,7 @@
 					</li>
 					<?php };?>
 					<li class="menu-item">
-						<a href="<?= base_url('home/logout'); ?>" class="menu-link">
+						<a href="<?= base_url('dashboard/logout'); ?>" class="menu-link">
 							<i class="menu-icon tf-icons bx bx-power-off text-danger"></i>
 							<div data-i18n="Boxicons" class="text-danger"><span class="fa fa-plus"></span> Logout</div>
 						</a>
@@ -158,7 +158,7 @@
 									<div class="dropdown-divider"></div>
 								</li>
 								<li>
-									<a class="dropdown-item" href="<?= base_url('home/logout'); ?>">
+									<a class="dropdown-item" href="<?= base_url('dashboard/logout'); ?>">
 										<i class="bx bx-power-off me-2"></i>
 										<span class="align-middle">Log Out</span>
 									</a>

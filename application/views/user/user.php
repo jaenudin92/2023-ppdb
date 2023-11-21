@@ -69,8 +69,7 @@
 								<label for="level" class="form-label">Level</label>
 								<select name="level" id="level" class="form-control">
 									<option value=""> -- Pilih Level -- </option>
-									<option value="HR">HR</option>
-									<option value="Manager">Manager</option>
+									<option value="Staff">Staff</option>
 								</select>
 								<small id="msg-level" class="msg text-danger"></small>
 							</div>
