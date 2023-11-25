@@ -540,6 +540,7 @@
 </main>
 
 <script src="<?= base_url(); ?>assets/js/jquery-3.6.1.min.js"></script>
+<script src="<?= base_url(); ?>assets/frontend/assets/js/sweetalert2@11.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -625,8 +626,8 @@
         // Add your validation logic here
 		var isValid = true;
 
-        // fieldset.find("input[type=text], input[type=date], input[type=radio],input[type=number],select, textarea, input[type=file]").each(function ()
-		fieldset.find("input[type=number],input[type=file]").each(function () {
+		fieldset.find("input[type=text], input[type=date], input[type=radio],input[type=number],select, textarea, input[type=file]").each(function () {
+		// fieldset.find("input[type=number],input[type=file]").each(function () {
 			if ($(this).is(':radio')) {
 	            // Check if at least one radio button in the group is checked
 				if ($('input[name="' + $(this).attr('name') + '"]:checked').length === 0) {
@@ -711,10 +712,56 @@
 		}
 		
 	})
-	
 });
 
+function setBorderRed(inputName) {
+	$('input[name="' + inputName + '"]').css("border", "1px solid red");
+}
+
 function daftar(){
-	alert("oke");
+	var btnDaftar = $("#btnDaftar");
+	var form = $('#msform')[0];
+	var data = new FormData(form);
+	var files = ['file_k7s1', 'file_k7s2', 'file_k8s1', 'file_k8s2', 'file_k9s1'];
+	for (var i = 0; i < files.length; i++) {
+		var fileInput = $('input[name="' + files[i] + '"]', form);
+		if (fileInput.val() === '') {
+			setBorderRed(files[i]);
+			return;
+		}
+	}
+
+	$.ajax({
+		url:"<?= base_url('ppdb/prosesprestasi'); ?>",
+		method:"POST",
+		data:data,
+		dataType:"json",
+		enctype: 'multipart/form-data',
+		processData: false,
+		contentType: false,
+		beforeSend: function(){
+			btnDaftar.val('Proses...').attr('disabled', true);
+		},
+		success:function (response) {
+			console.log(response);
+			btnDaftar.val('Daftar').attr('disabled', false);
+			if (response.status === true ) {
+				Swal.fire({
+					title: "Good job!",
+					text: "Terima kasih telah mendaftar!",
+					icon: "success",
+					showConfirmButton: false,
+					timer: 15000,
+					willClose: () => {
+						window.location.href = "<?= base_url('ppdb'); ?>";
+					}
+				});
+			}else{
+				if (response.error == 'upload') {
+					$('input[name="fileijazah"]').css("border", "1px solid red");
+				}
+			}
+		}
+	})
 }
 </script>

@@ -294,6 +294,7 @@
 </main>
 
 <script src="<?= base_url(); ?>assets/js/jquery-3.6.1.min.js"></script>
+<script src="<?= base_url(); ?>assets/frontend/assets/js/sweetalert2@11.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -445,7 +446,7 @@
 });
 
 	function daftar(){
-		// var btnDaftar = $("#btnDaftar");
+		var btnDaftar = $("#btnDaftar");
 		var form = $('#msform')[0];
 		var data = new FormData(form);
 
@@ -458,12 +459,28 @@
 			enctype: 'multipart/form-data',
 			processData: false,
 			contentType: false,
-			// beforeSend: function(){
-			// 	btnDaftar.val('Proses...').attr('disabled', true);
-			// },
+			beforeSend: function(){
+				btnDaftar.val('Proses...').attr('disabled', true);
+			},
 			success:function (response) {
 				console.log(response);
-				// btnDaftar.val('Daftar').attr('disabled', false);
+				btnDaftar.val('Daftar').attr('disabled', false);
+				if (response.status === true ) {
+					Swal.fire({
+						title: "Good job!",
+						text: "Terima kasih telah mendaftar!",
+						icon: "success",
+						showConfirmButton: false,
+						timer: 15000,
+						willClose: () => {
+							window.location.href = "<?= base_url('ppdb'); ?>";
+						}
+					});
+				}else{
+					if (response.error == 'upload') {
+						$('input[name="fileijazah"]').css("border", "1px solid red");
+					}
+				}
 			}
 		})
 	}
