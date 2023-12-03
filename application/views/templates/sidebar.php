@@ -14,9 +14,9 @@
 				<div class="app-brand demo">
 					<a href="<?= base_url('dashboard'); ?>" class="app-brand-link">
 						<span class="app-brand-logo demo">
-							<img src="<?= base_url(); ?>assets/img/favicon/favicon.ico" alt="Logo" style="width: 4.2vw;">
+							<img src="<?= base_url(); ?>assets/img/favicon/favicon.ico" alt="Logo" style="width: 3.5vw;">
 						</span>
-						<span class="app-brand-text demo menu-text fw-bolder ms-2 text-uppercase">PT. ACL</span>
+						<span class="app-brand-text demo menu-text fw-bolder ms-2 text-uppercase" style="font-size: 1.2vw;">SMK Bakti Idhata</span>
 					</a>
 				</div>
 

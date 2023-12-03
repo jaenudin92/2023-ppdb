@@ -5,6 +5,7 @@
 	<!-- ======= Events Section ======= -->
 	<section id="events" class="events">
 		<div class="container" data-aos="fade-up">
+			<h4 class="mt-5">Formulir Pendaftaran <?= $prestasi['nama_formulir']; ?> </h4>
 
 			<div class="row">
 				
@@ -24,6 +25,7 @@
 												<li class="checklist" id="nilaiprestasi"><strong>Nilai</strong></li>
 											</ul>
 											<!-- fieldsets -->
+											<input type="hidden" name="formulir_pendaftaran" value="<?= $prestasi['nama_formulir']; ?>">
 											<fieldset>
 												<div class="form-card">
 													<h5><b>Data Diri</b></h5>
@@ -750,8 +752,8 @@ function daftar(){
 					title: "Good job!",
 					text: "Terima kasih telah mendaftar!",
 					icon: "success",
-					showConfirmButton: false,
-					timer: 15000,
+					// showConfirmButton: false,
+					timer: 10000,
 					willClose: () => {
 						window.location.href = "<?= base_url('ppdb'); ?>";
 					}
@@ -759,6 +761,22 @@ function daftar(){
 			}else{
 				if (response.error == 'upload') {
 					$('input[name="fileijazah"]').css("border", "1px solid red");
+				}else if (response.error == 'kuota') {
+					Swal.fire({
+						title: "Gagal!",
+						text: "Kuota pendaftaran sudah habis!, silahkan coba lagi ditahun berikutnya",
+						icon: "warning",
+						willClose: () => {
+							window.location.href = "<?= base_url('ppdb'); ?>";
+						}
+					});
+				}else{
+					Swal.fire({
+						title: "Gagal!",
+						text: "",
+						icon: "warning"
+					});
+					btnDaftar.val('Daftar').attr('disabled', false);
 				}
 			}
 		}

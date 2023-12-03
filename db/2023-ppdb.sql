@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2023 at 12:39 AM
+-- Generation Time: Dec 03, 2023 at 03:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,7 +44,8 @@ CREATE TABLE `tbl_ayah` (
 --
 
 INSERT INTO `tbl_ayah` (`id`, `no_pendaftaran`, `nama_ayah`, `tmp_lahir_ayah`, `tgl_lahir_ayah`, `agama_ayah`, `warganegara_ayah`, `no_telp_ayah`, `alamat_ayah`) VALUES
-(1, '2023110001', 'Dihari', 'Pekalongan', '2023-11-20', 'Islam', 'Indonesia', '-', 'Pekalongan');
+(1, '2023110001', 'Wahyu', 'Tangerang', '2023-11-27', 'Islam', 'Indonesia', '-', 'Tangerang'),
+(2, '2023110002', 'Budiarto', 'Tangerang', '2023-11-27', 'Islam', 'Indonesia', '-', 'Tangerang');
 
 -- --------------------------------------------------------
 
@@ -55,6 +56,7 @@ INSERT INTO `tbl_ayah` (`id`, `no_pendaftaran`, `nama_ayah`, `tmp_lahir_ayah`, `
 CREATE TABLE `tbl_calon_siswa` (
   `no_pendaftaran` varchar(10) NOT NULL,
   `tahun_pendaftaran` year(4) NOT NULL,
+  `formulir_pendaftaran` varchar(50) NOT NULL,
   `nisn` varchar(15) NOT NULL,
   `nama_lengkap` varchar(50) NOT NULL,
   `tmp_lahir` varchar(50) NOT NULL,
@@ -64,7 +66,7 @@ CREATE TABLE `tbl_calon_siswa` (
   `alamat` text NOT NULL,
   `sekolah_asal` int(11) NOT NULL,
   `jalur` varchar(10) NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` varchar(20) DEFAULT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -72,8 +74,9 @@ CREATE TABLE `tbl_calon_siswa` (
 -- Dumping data for table `tbl_calon_siswa`
 --
 
-INSERT INTO `tbl_calon_siswa` (`no_pendaftaran`, `tahun_pendaftaran`, `nisn`, `nama_lengkap`, `tmp_lahir`, `tgl_lahir`, `jk_kelamin`, `agama`, `alamat`, `sekolah_asal`, `jalur`, `status`, `keterangan`) VALUES
-('2023110001', '2023', '1234567810', 'Jaenudin', 'Pekalongan', '2023-11-20', 'Laki - Laki', 'Islam', 'Tangerang', 1, 'Reguler', 0, '');
+INSERT INTO `tbl_calon_siswa` (`no_pendaftaran`, `tahun_pendaftaran`, `formulir_pendaftaran`, `nisn`, `nama_lengkap`, `tmp_lahir`, `tgl_lahir`, `jk_kelamin`, `agama`, `alamat`, `sekolah_asal`, `jalur`, `status`, `keterangan`) VALUES
+('2023110001', '2023', 'Jalur Reguer 2023/2024', '20231100001', 'Bagas Kurniawan', 'Tangerang', '2023-11-27', 'Laki - Laki', 'Islam', 'Tangerang', 1, 'Reguler', NULL, ''),
+('2023110002', '2023', 'Jalur Reguer 2023/2024', '20231100002', 'Arif Nurrohman', 'Tangerang', '2023-11-27', 'Laki - Laki', 'Islam', 'Tangerang', 2, 'Reguler', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -84,8 +87,18 @@ INSERT INTO `tbl_calon_siswa` (`no_pendaftaran`, `tahun_pendaftaran`, `nisn`, `n
 CREATE TABLE `tbl_filescan` (
   `id` int(11) NOT NULL,
   `no_pendaftaran` varchar(10) NOT NULL,
-  `filescan` varchar(100) NOT NULL
+  `filescan` varchar(100) NOT NULL,
+  `jalur` varchar(20) NOT NULL,
+  `peringkat` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_filescan`
+--
+
+INSERT INTO `tbl_filescan` (`id`, `no_pendaftaran`, `filescan`, `jalur`, `peringkat`) VALUES
+(1, '2023110001', 'course-2.jpg', 'Reguler', NULL),
+(2, '2023110002', 'course-3.jpg', 'Reguler', NULL);
 
 -- --------------------------------------------------------
 
@@ -110,7 +123,31 @@ CREATE TABLE `tbl_ibu` (
 --
 
 INSERT INTO `tbl_ibu` (`id`, `no_pendaftaran`, `nama_ibu`, `tmp_lahir_ibu`, `tgl_lahir_ibu`, `agama_ibu`, `warganegara_ibu`, `no_telp_ibu`, `alamat_ibu`) VALUES
-(1, '2023110001', 'Katijah', 'Pekalongan', '2023-11-20', 'Islam', 'Indonesia', '-', 'Pekalongan');
+(1, '2023110001', 'Wanda', 'Tangerang', '2023-11-27', 'Islam', 'Indonesia', '-', 'Tangerang'),
+(2, '2023110002', 'Budiarti', 'Tangerang', '2023-11-27', 'Islam', 'Indonesia', '-', 'Tangerang');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_jadwal_pendaftaran`
+--
+
+CREATE TABLE `tbl_jadwal_pendaftaran` (
+  `id` int(11) NOT NULL,
+  `nama_formulir` varchar(50) NOT NULL,
+  `jalur` varchar(20) NOT NULL,
+  `kuota` int(11) NOT NULL,
+  `dibuka` date NOT NULL,
+  `ditutup` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_jadwal_pendaftaran`
+--
+
+INSERT INTO `tbl_jadwal_pendaftaran` (`id`, `nama_formulir`, `jalur`, `kuota`, `dibuka`, `ditutup`) VALUES
+(1, 'Jalur Reguer 2023/2024', 'Reguler', 2, '2023-11-26', '2023-11-30'),
+(2, 'Jalur Prestasi 2023/2024', 'Prestasi', 10, '2023-11-26', '2023-11-30');
 
 -- --------------------------------------------------------
 
@@ -123,10 +160,23 @@ CREATE TABLE `tbl_nilai` (
   `id_file` int(11) NOT NULL,
   `mapel` varchar(20) NOT NULL,
   `nilai` int(11) DEFAULT NULL,
-  `kelas` int(11) DEFAULT NULL,
-  `semester` int(11) DEFAULT NULL,
+  `kelas` char(2) DEFAULT NULL,
+  `semester` char(2) DEFAULT NULL,
+  `verifikasi_nilai` int(11) DEFAULT NULL,
   `verifikasi` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_nilai`
+--
+
+INSERT INTO `tbl_nilai` (`id`, `id_file`, `mapel`, `nilai`, `kelas`, `semester`, `verifikasi_nilai`, `verifikasi`) VALUES
+(1, 1, 'Bahasa Indonesia', 80, NULL, NULL, NULL, NULL),
+(2, 1, 'Bahasa Inggris', 98, NULL, NULL, NULL, NULL),
+(3, 1, 'Matematika', 89, NULL, NULL, NULL, NULL),
+(4, 2, 'Bahasa Indonesia', 98, NULL, NULL, NULL, NULL),
+(5, 2, 'Bahasa Inggris', 78, NULL, NULL, NULL, NULL),
+(6, 2, 'Matematika', 88, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -202,6 +252,12 @@ ALTER TABLE `tbl_ibu`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_jadwal_pendaftaran`
+--
+ALTER TABLE `tbl_jadwal_pendaftaran`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_nilai`
 --
 ALTER TABLE `tbl_nilai`
@@ -227,25 +283,31 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_ayah`
 --
 ALTER TABLE `tbl_ayah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_filescan`
 --
 ALTER TABLE `tbl_filescan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_ibu`
 --
 ALTER TABLE `tbl_ibu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_jadwal_pendaftaran`
+--
+ALTER TABLE `tbl_jadwal_pendaftaran`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_nilai`
 --
 ALTER TABLE `tbl_nilai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_sekolah_asal`
